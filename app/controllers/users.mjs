@@ -1,8 +1,13 @@
 import { httpError } from '../helpers/handleError.mjs';
 import userModel from '../models/users.mjs';
 
-const getUsers = (req, res) => {
-    res.send('lista de USUARIOS cargados');
+const getUsers = async (req, res) => {
+    try {
+        const listAll = await userModel.find({});
+        res.send({ data: listAll});
+    } catch(e) {
+        httpError(res, e);
+    }
 }
 
 const getUser = async (req, res) => {}

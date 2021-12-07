@@ -39,7 +39,7 @@ for (let file of filesNames) {
     const fileWithOutExtension = removeExtension(file);
     const skip = ['index'].includes(fileWithOutExtension);
     if (!skip) {
-        const usersRoutesModule = await loadModule(`${__dirname}/${file}`); // FUNCIONA
+        const usersRoutesModule = await loadModule(`file:${__dirname}/${file}`); // FUNCIONA
         // console.log(`modulo cargado ... ${fileWithOutExtension}`);
         router.use(`/${fileWithOutExtension}`, usersRoutesModule.router);
     }
