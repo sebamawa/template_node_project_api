@@ -4,11 +4,12 @@ import userModel from '../models/users.mjs';
 const loginUser = async(req, res) => {
     try {
         const { email, password } = req.body;
-        userModel.findOne({ email }, async (err, user) => {
-           if (err) {
-               console.log(err);
-               res.send({ error: "Error al buscar el usuario" });
-           }
+        // userModel.findOne({ email }, async (err, user) => {
+        const user = await userModel.findOne({ email });    
+        //    if (err) {
+        //        console.log(err);
+        //        res.send({ error: "Error al buscar el usuario" });
+        //    }
            if (!user) { // user puede ser null si no se encuentra el documento
                res.send({ error: 'credenciales incorrectas' });
            } else {
@@ -22,10 +23,10 @@ const loginUser = async(req, res) => {
                     res.send({ error: 'credenciales incorrectas' });
                 } 
            }
-        }) 
+        // }) 
     } catch(error) {
-        console.log(`Error login: ${e}`);
-        res.send({ error: 'credenciales incorrectas' });
+        console.log(`Error login: ${error}`);
+        res.send({ error: 'no se pudo autenticar' });
     }
 }
 
