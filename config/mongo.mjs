@@ -12,7 +12,8 @@ const dbConnect = () => {
         if (!err) {
             console.log('DB Connected');
         } else {
-            console.log(`DB Connection Error; ${err}`); 
+            console.log(`DB Connection Error; ${err}`);
+            process.exit(1); 
         }
     });
 }

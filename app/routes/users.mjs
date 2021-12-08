@@ -1,14 +1,12 @@
 import express from "express";
 const router = express.Router();
-import { getUsers, getUser, createUser, updateUser, deleteUser } from "../controllers/users.mjs";
+import { loginUser, getUsers, getUser, createUser, updateUser, deleteUser } from "../controllers/users.mjs";
 // middleware
 import checkOrigin from '../middleware/origin.mjs';
 
-router.get("/", getUsers);
+router.post("/login", loginUser);
 
-// router.get("/", (req, res) => {
-//     res.send('lista de usuarios');
-// });
+router.get("/", getUsers);
 
 router.get('/:id', getUser);
 
