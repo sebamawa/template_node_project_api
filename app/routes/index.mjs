@@ -13,8 +13,13 @@ const removeExtension = (fileName) => {
 }
 
 const loadModule = async (path) => {
-    const module = await import(path);
-    return module;
+    try {
+        const module = await import(path);
+        return module;
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
 }
 
 // const userRoutesModule = await loadModule('./users.mjs'); // FUNCIONA
@@ -39,9 +44,9 @@ for (let file of filesNames) {
     const fileWithOutExtension = removeExtension(file);
     const skip = ['index'].includes(fileWithOutExtension);
     if (!skip) {
-        const usersRoutesModule = await loadModule(`file:${__dirname}/${file}`); // FUNCIONA
+        const routesModule = await loadModule(`file:${__dirname}/${file}`); // FUNCIONA
         // console.log(`modulo cargado ... ${fileWithOutExtension}`);
-        router.use(`/${fileWithOutExtension}`, usersRoutesModule.router);
+        router.use(`/${fileWithOutExtension}`, routesModule.router);
     }
 }
 
