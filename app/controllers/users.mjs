@@ -4,7 +4,7 @@ import userModel from '../models/users.mjs';
 const getUsers = async (req, res) => {
     try {
         const listAll = await userModel.find({});
-        res.send({ data: listAll});
+        res.json(listAll);
     } catch(e) {
         httpError(res, e);
     }
