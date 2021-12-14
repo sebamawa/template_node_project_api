@@ -19,12 +19,13 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        // select: false
     }
 },
     { 
         timestamps: true, // agrega los campos createdAt y updatedAt
-        versionKey: false    
+        versionKey: false  
     });
 
 // encripta contraseña
@@ -64,4 +65,5 @@ UserSchema.methods.comparePassword = async function(candidatePassword, hashedPas
     }
 };
 
+// exportar el modelo
 export default mongoose.model('users', UserSchema); // users es el nombre de la coleccion en la base de datos

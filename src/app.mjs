@@ -1,8 +1,10 @@
+//** Configuracion del servidor */
+
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import cors from 'cors';
-import router from './app/routes/index.mjs';
+import router from './routes/index.mjs';
 
 // swagger
 import swaggerUi from 'swagger-ui-express';
@@ -10,12 +12,10 @@ import swaggerUi from 'swagger-ui-express';
 // https://levelup.gitconnected.com/how-to-add-swagger-ui-to-existing-node-js-and-express-js-project-2c8bad9364ce
 import { createRequire } from "module"; // para cargar json con es6 modules
 const require = createRequire(import.meta.url);
-const swaggerDocument = require("./swagger.json");
+const swaggerDocument = require("../swagger.json");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-import dbConnect from './config/mongo.mjs';
+// const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
@@ -27,8 +27,4 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // router.use('/api-docs', swaggerUi.serve);
 // router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
-dbConnect();
-
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-});
+export default app;

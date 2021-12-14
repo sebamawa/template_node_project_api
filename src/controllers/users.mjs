@@ -1,9 +1,9 @@
 import { httpError } from '../helpers/handleError.mjs';
-import userModel from '../models/users.mjs';
+import UserModel from '../models/users.mjs';
 
 const getUsers = async (req, res) => {
     try {
-        const listAll = await userModel.find({});
+        const listAll = await userModel.find({}, {createdAt: 0, updatedAt: 0});
         res.json(listAll);
     } catch(e) {
         httpError(res, e);
@@ -15,11 +15,12 @@ const getUser = async (req, res) => {}
 const createUser = async (req, res) => {
     try {
         const { username, name, email, password } = req.body;
-        const resDetail = await userModel.create({
+        const userCreated = await UserModel.create({
             username, name, email, password
-        })
-        res.send({ data: resDetail});
+        });
+        res.json({userCreated: {name: userCreated.name, username: userCreated.username, email: userCreated.email}});
     } catch(e) {
+        res.json({error: "No se pudo crear el usuario"});
         httpError(res, e);
     }
 }

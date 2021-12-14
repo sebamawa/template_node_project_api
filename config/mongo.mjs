@@ -2,23 +2,23 @@
 import mongoose from 'mongoose';
 
 // Conexion remota a MongoDB usando Atlas
-const dbConnect = () => { 
-    const DB_URI = process.env.DB_URI;
-    console.log(DB_URI);
-    const connectionParams = {
-        useNewUrlParser: true,
-        //useCreateIndex: true,
-        useUnifiedTopology: true 
-    }
-    mongoose.connect(DB_URI, connectionParams)
-        .then( () => {
-            console.log('Connected to database ')
-        })
-        .catch( (err) => {
-            console.error(`Error connecting to the database. \n${err}`);
-            process.exit(1);
-        })
-}
+// const dbConnect = () => { 
+//     const DB_URI = process.env.DB_URI;
+//     console.log(DB_URI);
+//     const connectionParams = {
+//         useNewUrlParser: true,
+//         //useCreateIndex: true,
+//         useUnifiedTopology: true 
+//     }
+//     mongoose.connect(DB_URI, connectionParams)
+//         .then( () => {
+//             console.log('Connected to database ')
+//         })
+//         .catch( (err) => {
+//             console.error(`Error connecting to the database. \n${err}`);
+//             process.exit(1);
+//         })
+// }
 
     //=================================================================================
 // Conexion local a MongoDB
@@ -38,6 +38,24 @@ const dbConnect = () => {
 //         }
 //     });
 // }
+
+const dbConnect = async () => {
+    const DB_URI = process.env.DB_URI;
+    const connectionParams = {
+        useNewUrlParser: true,
+        //useCreateIndex: true,
+        useUnifiedTopology: true 
+    }    
+
+    try {
+        console.log('Conectando a la base de datos...');
+        await mongoose.connect(DB_URI, connectionParams);
+        console.log('DB Connected');    
+    } catch( e ) {
+        console.error(`Error connecting to the database. \n${e}`);
+        process.exit(1);
+    }
+}
 //=================================================================================
 
 export default dbConnect;
