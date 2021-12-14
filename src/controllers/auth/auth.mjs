@@ -1,4 +1,4 @@
-import { httpError } from '../../helpers/handleError.mjs';
+import { httpError } from '../../helpers/auxiliaryFunctions.mjs';
 import UserModel from '../../models/users.mjs';
 import jwt from 'jsonwebtoken';
 
@@ -66,6 +66,7 @@ const loginUser = async(req, res) => {
 const profileUser = async(req, res) => {
     const SECRET_KEY_JWS = process.env.SECRET_KEY_JWS;
     try {
+        /*
         // console.log(req.headers);
         const token = req.headers['authorization']; //.replace('Bearer ', '');
         if (!token) {
@@ -74,10 +75,15 @@ const profileUser = async(req, res) => {
                 error: 'No se ha proporcionado el token'
             });
         }
+
+        // TODO: verificacion del token se hace en un middleware y se usa en todo ruta que tenga que verificarlo
         // obtengo datos del usuario (del payload del token) 
         const user = jwt.verify(token, SECRET_KEY_JWS);
-        const email = user.email;
-        // busco el usuario en la base de datos por id
+        */
+
+        console.log(req.user);
+        const email = req.user.email;
+        // busco el usuario en la base de datos por email
         const userData = await UserModel.findOne({ email }, {_id: 0, password: 0, createdAt: 0, updatedAt: 0});
         if (userData) {
             res.json({

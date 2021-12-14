@@ -1,4 +1,4 @@
-import { httpError } from '../helpers/handleError.mjs';
+import { httpError } from '../helpers/auxiliaryFunctions.mjs';
 import UserModel from '../models/users.mjs';
 
 const getUsers = async (req, res) => {
