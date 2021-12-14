@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         // select: false
     }
-},
+}, 
     { 
         timestamps: true, // agrega los campos createdAt y updatedAt
         versionKey: false  
